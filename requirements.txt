@@ -1,0 +1,15 @@
+tensorflow==2.x
+pandas==1.1.5
+matplotlib==3.3.4
+numpy==1.19.2
+seaborn==0.11.2
+scikit-learn==1.0.2
+ipaddress==1.0.23
+lightgbm==3.3.2
+neptune-client==0.14.3
+neptune-tensorflow-keras==0.9.9
+schedule==1.1.0
+PyYAML==6.0
+imblearn
+schedule==1.1.0
+IPython==8.5.0

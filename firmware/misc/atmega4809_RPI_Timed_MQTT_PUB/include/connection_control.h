@@ -1,0 +1,2 @@
+#define SECRET_SSID "dlink-ENViSEC"
+#define SECRET_PASS "ENViSEC_123"

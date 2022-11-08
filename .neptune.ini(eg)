@@ -1,0 +1,5 @@
+[neptune_access]
+; name of the project in neptune.ai (workspace/project)
+project = ENViSEC/ENViSEC
+; get this API key from neptune.ai
+api_token = <YOUR API KEY>

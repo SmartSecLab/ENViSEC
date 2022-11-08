@@ -1,0 +1,76 @@
+// Enter Flows between Nodes, like this:
+//         Source [AMOUNT] Target
+
+// original_samples  [325307990] unfiltered_samples 
+// removed_samples: 323422976
+
+original_samples [19538713] DDoS
+original_samples [30858735] benign
+original_samples [213852924] PartOfAHorizontalPortScan
+original_samples [60990708] Okiru
+original_samples [9398] Attack
+original_samples [33673] C&C-HeartBeat
+original_samples [21995] C&C
+original_samples [834] C&C-HeartBeat-Attack
+original_samples [53] C&C-FileDownload
+original_samples [18] FileDownload
+original_samples [30] C&C-Torii
+original_samples [11] C&C-HeartBeat-FileDownload
+original_samples [5] PartOfAHorizontalPortScan-Attack
+original_samples [3] Okiru-Attack
+original_samples [3] C&C-Mirai
+
+DDoS [1642788] DDoS-
+benign [116997] benign-
+PartOfAHorizontalPortScan [68051] PartOfAHorizontalPortScan-
+Okiru [14693] Okiru-
+Attack [9141] Attack-
+C&C-HeartBeat [8182] C&C-HeartBeat-
+C&C [7893] C&C-
+C&C-HeartBeat-Attack [726] C&C-HeartBeat-Attack-
+C&C-FileDownload [39] C&C-FileDownload-
+FileDownload [14] FileDownload-
+C&C-Torii [12] C&C-Torii-
+C&C-HeartBeat-FileDownload [11] C&C-HeartBeat-FileDownload-
+PartOfAHorizontalPortScan-Attack [3] PartOfAHorizontalPortScan-Attack-
+Okiru-Attack [2] Okiru-Attack-
+
+// original_samples [323439438] filtered_samples
+// unfiltered_samples [1885014] selected_data
+
+DDoS- [1642788] selected_samples
+benign- [116997] selected_samples
+PartOfAHorizontalPortScan- [68051] selected_samples
+Okiru- [14693] selected_samples
+Attack- [9141] selected_samples
+C&C-HeartBeat- [8182] selected_samples
+C&C- [7893] selected_samples
+C&C-HeartBeat-Attack- [726] selected_samples
+C&C-FileDownload- [39] selected_samples
+FileDownload- [14] selected_samples
+C&C-Torii- [12] selected_samples
+C&C-HeartBeat-FileDownload- [11] selected_samples
+PartOfAHorizontalPortScan-Attack- [3] selected_samples
+Okiru-Attack- [2] selected_samples
+
+selected_samples [1642788] DDoS:
+selected_samples [1642788] benign:
+selected_samples [1642788] PartOfAHorizontalPortScan:
+selected_samples [1642788] Okiru:
+selected_samples [1642788] Attack:
+selected_samples [1642788] C&C-HeartBeat:
+selected_samples [1642788] C&C:
+selected_samples [1642788] C&C-HeartBeat-Attack:
+
+DDoS: [1642788] balanced-data
+benign: [1642788] balanced-data
+PartOfAHorizontalPortScan: [1642788] balanced-data
+Okiru: [1642788] balanced-data
+Attack: [1642788] balanced-data
+C&C-HeartBeat: [1642788] balanced-data
+C&C: [1642788] balanced-data
+C&C-HeartBeat-Attack: [1642788] balanced-data
+
+
+
+

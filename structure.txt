@@ -1,0 +1,313 @@
+###  Structure of the project repository:
+.
+├── LICENSE
+├── Makefile
+├── README.md
+├── check.py
+├── config.yaml
+├── current_sense_poc
+├── data
+│   ├── AIoT-Sol.csv
+│   ├── Edge-lloTset.zip
+│   ├── README.md
+│   ├── classes.npy
+│   ├── predict
+│   │   └── conn.log
+│   ├── predicted
+│   └── processed
+│       ├── IoT-23.csv
+│       └── selected_features_new.csv
+├── docs
+│   ├── sankeymatic_data_balanced.txt
+│   └── sankeymatic_data_preprocessing.txt
+├── figures
+│   ├── framework
+│   │   ├── workflow-lite.drawio
+│   │   ├── workflow-lite.pdf
+│   │   ├── workflow.png
+│   ├── labels_frequency.pdf
+│   ├── memory.png
+│   ├── performance_measures.png
+│   ├── sankeymatic_balanced-under_over.png
+│   ├── sankeymatic_balanced.png
+│   └── sankeymatic_original.png
+├── firmware
+│   ├── README.md
+│   ├── misc
+│   │   ├── SleepMode_test_ATMEGA4809
+│   │   │   ├── include
+│   │   │   │   └── README
+│   │   │   ├── platformio.ini
+│   │   │   ├── src
+│   │   │   │   └── main.cpp
+│   │   │   └── test
+│   │   │       └── README
+│   │   ├── atmega4809_RPI_Timed_MQTT_PUB
+│   │   │   ├── include
+│   │   │   │   ├── README
+│   │   │   │   └── connection_control.h
+│   │   │   ├── platformio.ini
+│   │   │   ├── src
+│   │   │   │   ├── disable_ports.h
+│   │   │   │   └── main.cpp
+│   │   │   └── test
+│   │   │       └── README
+│   │   ├── atmega4809_ext_int_wakeup
+│   │   │   ├── UC3_Smart_Waste_Bin
+│   │   │   │   ├── include
+│   │   │   │   │   └── README
+│   │   │   │   ├── platformio.ini
+│   │   │   │   ├── src
+│   │   │   │   │   └── main.cpp
+│   │   │   │   └── test
+│   │   │   │       └── README
+│   │   │   ├── include
+│   │   │   │   └── README
+│   │   │   ├── platformio.ini
+│   │   │   ├── src
+│   │   │   │   └── main.cpp
+│   │   │   └── test
+│   │   │       └── README
+│   │   ├── plain_subscriber
+│   │   │   └── plain_subscriber.cpp
+│   │   └── simple_sub
+│   │       ├── include
+│   │       │   ├── README
+│   │       │   └── controllerIni.h
+│   │       ├── platformio.ini
+│   │       ├── src
+│   │       │   ├── main.cpp
+│   │       │   └── main.cpp.bak
+│   │       └── test
+│   │           └── README
+│   ├── oop templates
+│   │   ├── inheritance_mqtt_pub_event_AUWR2
+│   │   │   ├── include
+│   │   │   │   ├── README
+│   │   │   │   └── controllerIni.h
+│   │   │   ├── platformio.ini
+│   │   │   ├── src
+│   │   │   │   ├── CASleepController.cpp
+│   │   │   │   ├── CASleepController.h
+│   │   │   │   ├── CATransmissionController.cpp
+│   │   │   │   ├── CATransmissionController.h
+│   │   │   │   ├── Controller.cpp
+│   │   │   │   ├── Controller.h
+│   │   │   │   ├── Controller.h.bak
+│   │   │   │   └── main.cpp
+│   │   │   └── test
+│   │   │       └── README
+│   │   ├── inheritance_mqtt_pub_timed_AUWR2
+│   │   │   ├── include
+│   │   │   │   ├── README
+│   │   │   │   └── controllerIni.h
+│   │   │   ├── platformio.ini
+│   │   │   ├── src
+│   │   │   │   ├── CASleepController.cpp
+│   │   │   │   ├── CASleepController.h
+│   │   │   │   ├── CATransmissionController.cpp
+│   │   │   │   ├── CATransmissionController.h
+│   │   │   │   ├── CController.cpp
+│   │   │   │   ├── CController.h
+│   │   │   │   └── main.cpp
+│   │   │   └── test
+│   │   │       └── README
+│   │   ├── inheritance_mqtt_sub_event_AUWR2
+│   │   │   ├── include
+│   │   │   │   ├── README
+│   │   │   │   └── controllerIni.h
+│   │   │   ├── platformio.ini
+│   │   │   ├── src
+│   │   │   │   ├── CASleepController.cpp
+│   │   │   │   ├── CASleepController.h
+│   │   │   │   ├── CATransmissionController.cpp
+│   │   │   │   ├── CATransmissionController.h
+│   │   │   │   ├── CController.cpp
+│   │   │   │   ├── CController.h
+│   │   │   │   └── main.cpp
+│   │   │   └── test
+│   │   │       └── README
+│   │   ├── singleton_pub_AUWR2
+│   │   │   ├── include
+│   │   │   │   ├── README
+│   │   │   │   └── controllerIni.h
+│   │   │   ├── platformio.ini
+│   │   │   ├── src
+│   │   │   │   ├── CController.cpp
+│   │   │   │   ├── CController.h
+│   │   │   │   └── main.cpp
+│   │   │   └── test
+│   │   │       └── README
+│   │   └── singleton_sub_AUWR2
+│   │       ├── include
+│   │       │   ├── README
+│   │       │   └── controllerIni.h
+│   │       ├── platformio.ini
+│   │       ├── src
+│   │       │   ├── CController.cpp
+│   │       │   ├── CController.h
+│   │       │   └── main.cpp
+│   │       └── test
+│   │           └── README
+│   └── use cases
+│       ├── singleton_pub_AUWR2_template
+│       │   ├── include
+│       │   │   ├── README
+│       │   │   └── controllerIni.h
+│       │   ├── platformio.ini
+│       │   ├── src
+│       │   │   ├── CController.cpp
+│       │   │   ├── CController.h
+│       │   │   └── main.cpp
+│       │   └── test
+│       │       └── README
+│       ├── singleton_sub_AUWR2_template
+│       │   ├── include
+│       │   │   ├── README
+│       │   │   └── controllerIni.h
+│       │   ├── platformio.ini
+│       │   ├── src
+│       │   │   ├── CController.cpp
+│       │   │   ├── CController.h
+│       │   │   └── main.cpp
+│       │   └── test
+│       │       └── README
+│       ├── uc3.1p_smart_waste_bin
+│       │   ├── include
+│       │   │   ├── README
+│       │   │   └── controllerIni.h
+│       │   ├── platformio.ini
+│       │   ├── src
+│       │   │   ├── CController.cpp
+│       │   │   ├── CController.h
+│       │   │   └── main.cpp
+│       │   └── test
+│       │       └── README
+│       ├── uc3.1s_smart_waste_bin
+│       │   ├── include
+│       │   │   ├── README
+│       │   │   └── controllerIni.h
+│       │   ├── platformio.ini
+│       │   ├── src
+│       │   │   ├── CController.cpp
+│       │   │   ├── CController.h
+│       │   │   └── main.cpp
+│       │   └── test
+│       │       └── README
+│       ├── uc5.1_passenger_counting
+│       │   ├── include
+│       │   │   └── README
+│       │   ├── platformio.ini
+│       │   ├── src
+│       │   │   └── main.cpp
+│       │   └── test
+│       │       └── README
+│       ├── uc6.1p_luminance
+│       │   ├── include
+│       │   │   ├── README
+│       │   │   └── controllerIni.h
+│       │   ├── platformio.ini
+│       │   ├── src
+│       │   │   ├── CController.cpp
+│       │   │   ├── CController.h
+│       │   │   └── main.cpp
+│       │   └── test
+│       │       └── README
+│       ├── uc6.1s_luminance
+│       │   ├── include
+│       │   │   ├── README
+│       │   │   └── controllerIni.h
+│       │   ├── platformio.ini
+│       │   ├── src
+│       │   │   ├── CController.cpp
+│       │   │   ├── CController.h
+│       │   │   └── main.cpp
+│       │   └── test
+│       │       └── README
+│       ├── uc6.3p_temperature
+│       │   ├── include
+│       │   │   ├── README
+│       │   │   └── controllerIni.h
+│       │   ├── platformio.ini
+│       │   ├── src
+│       │   │   └── main.cpp
+│       │   └── test
+│       │       └── README
+│       └── uc6.3s_temperature
+│           ├── include
+│           │   ├── README
+│           │   └── controllerIni.h
+│           ├── platformio.ini
+│           ├── src
+│           │   └── main.cpp
+│           └── test
+│               └── README
+├── notebooks
+│   ├── AIoT-Sol.ipynb
+│   ├── edge-IIoTset.ipynb
+│   ├── feature_selection.ipynb
+│   ├── frozen_models
+│   │   ├── frozen_graph.pb
+│   │   └── frozen_graph.pbtext
+│   ├── other_dataset.ipynb
+│   ├── practise.ipynb
+│   ├── preprocess-iot23.ipynb
+│   ├── processing_columns.ipynb
+│   ├── reproduce.ipynb
+│   └── serve.ipynb
+├── predict.yaml
+├── requirements.txt
+├── results
+│   ├── basic-dnn-500-performance.png
+│   ├── data-plots
+│   │   ├── distribution_pie_1_chunk.pdf
+│   │   └── iot-23-heatmap_1_chunk.pdf
+│   ├── data_plots
+│   │   ├── iot-23-features-importance_full.pdf
+│   │   └── iot-23-features.pdf
+│   ├── dnn-100-30-cols
+│   │   ├── checkpoint
+│   │   ├── checkpoint_model.h5
+│   │   ├── learnig_curves.pdf
+│   │   ├── learnig_curves_loss.pdf
+│   │   ├── logs
+│   │   │   ├── train
+│   │   │   │   ├── events.out.tfevents.1650928709.guru.71368.0.v2
+│   │   │   └── validation
+│   │   │       ├── events.out.tfevents.1650928801.guru.71720.1.v2
+│   │   ├── model-final.h5
+│   │   ├── pre-fit.weights.data-00000-of-00001
+│   │   └── pre-fit.weights.index
+├── rpi
+│   ├── __pycache__
+│   │   ├── fetch.cpython-38.pyc
+│   │   ├── publish.cpython-38.pyc
+│   │   └── trail.cpython-38.pyc
+│   ├── fetch.py
+│   ├── publish-eg.py
+│   └── publish.py
+├── scripts
+│   ├── optimize_pb.sh
+│   ├── run-zeek.sh
+│   ├── scanner.sh
+│   ├── slurm_train.sh
+│   └── slurm_tunneling.sh
+├── src
+│   ├── filter_data.py
+│   ├── models.py
+│   ├── normalize_data.py
+│   ├── predict-old.py
+│   ├── predict.py
+│   ├── reproduce.ipynb
+│   ├── run.py
+│   ├── run_poc.py
+│   ├── text2csv.py
+│   └── utility.py
+├── structure.txt
+└── tinyML
+    ├── __pycache__
+    │   ├── publish.cpython-38.pyc
+    │   └── publish.cpython-39.pyc
+    ├── example.json
+    ├── publish.py
+    └── tinyML.ino

@@ -1,0 +1,8 @@
+classes_file: data/classes.npy
+clean: true
+host: http://192.168.1.186:6952/data/
+log_file: data/predict/conn.log
+model_path: results/dnn-100-base/model-final.h5
+output: data/predicted/
+time: 5
+train_data: data/processed/IoT-23.csv
