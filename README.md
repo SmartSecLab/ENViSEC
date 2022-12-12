@@ -48,8 +48,5 @@ The following figure shows the AI model transfer and prediction approach.
 ## Test-cases and middleware architecture:
 The proposed middleware architecture with some hardware test-cases to replicate the real-world scenarios are presented in the `firmware` directory.
 
-# Citation:
-- Guru Prasad Bhandari, Andreas Lyth, Andrii Shalaginov, and Tor-Morten Grønli, Artificial Intelligence-enabled middleware for distributed cyberattacks detection in IoT-based Smart Environments, 2022 IEEE International Conference on Big Data (Big Data), 2022.
-
 # Acknowledgements:
 This work is a part of the [ENViSEC](https://smartseclab.com/envisec/) project which has received funding from the‌ European Union’s Horizon 2020 research and innovation program within the framework of the NGI POINTER Project funded under grant agreement# 871528.
