@@ -1,5 +1,15 @@
 """
-Utility module for common functions used in the project like loading, saving, plotting, etc.
+Copyright (C) 2023 Kristiania University College- All Rights Reserved
+You may use, distribute and modify this code under the
+terms of the MIT license.
+You should have received a copy of the MIT license with
+this file. If not, please write to: https://opensource.org/licenses/MIT
+
+Project: ENViSEC - Artificial Intelligence-enabled Cybersecurity for Future Smart Environments 
+(funded from the European Union’s Horizon 2020, NGI-POINTER under grant agreement No 871528).
+@Authors: Guru Bhandari, Andreas Lyth, Andrii Shalaginov, Tor-Morten Grønli
+@Programmer: Guru Bhandari
+@File - Utility module for common functions used in the project like loading, saving, plotting, etc.
 """
 import glob
 import os
