@@ -7,16 +7,10 @@
 ├── config.yaml
 ├── current_sense_poc
 ├── data
-│   ├── AIoT-Sol.csv
-│   ├── Edge-lloTset.zip
 │   ├── README.md
 │   ├── classes.npy
 │   ├── predict
 │   │   └── conn.log
-│   ├── predicted
-│   └── processed
-│       ├── IoT-23.csv
-│       └── selected_features_new.csv
 ├── docs
 │   ├── sankeymatic_data_balanced.txt
 │   └── sankeymatic_data_preprocessing.txt

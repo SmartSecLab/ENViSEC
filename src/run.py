@@ -382,6 +382,7 @@ if __name__ == '__main__':
     data_file = paras.data if paras.data else config['data_dir'] + config['data_file']
 
     minor_threshold = int(config['minority_threshold'])
+    
     # pick model name from command line arg otherwise from config file. 
     config['model']['name'] = paras.model if paras.model else config['model']['name'] 
 
