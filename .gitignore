@@ -142,8 +142,6 @@ data/1chunk_20_features/
 data/
 models/
 results/logs/
-results/dnn-*
-results/
 device-test.py
 test.ipynb
 .neptune_access.ini

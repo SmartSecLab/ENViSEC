@@ -1,0 +1,139 @@
+node {
+  name: "x"
+  op: "Placeholder"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: -1
+        }
+        dim {
+          size: 11
+        }
+      }
+    }
+  }
+}
+node {
+  name: "sequential/dense/MatMul"
+  op: "MatMul"
+  input: "x"
+  input: "sequential/dense/MatMul/ReadVariableOp/resource"
+  attr {
+    key: "transpose_a"
+    value {
+      b: false
+    }
+  }
+  attr {
+    key: "transpose_b"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "sequential/dense/BiasAdd"
+  op: "BiasAdd"
+  input: "sequential/dense/MatMul"
+  input: "sequential/dense/BiasAdd/ReadVariableOp/resource"
+}
+node {
+  name: "sequential/dense/Relu"
+  op: "Relu"
+  input: "sequential/dense/BiasAdd"
+}
+node {
+  name: "sequential/dense_1/MatMul"
+  op: "MatMul"
+  input: "sequential/dense/Relu"
+  input: "sequential/dense_1/MatMul/ReadVariableOp/resource"
+  attr {
+    key: "transpose_a"
+    value {
+      b: false
+    }
+  }
+  attr {
+    key: "transpose_b"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "sequential/dense_1/BiasAdd"
+  op: "BiasAdd"
+  input: "sequential/dense_1/MatMul"
+  input: "sequential/dense_1/BiasAdd/ReadVariableOp/resource"
+}
+node {
+  name: "sequential/dense_1/Relu"
+  op: "Relu"
+  input: "sequential/dense_1/BiasAdd"
+}
+node {
+  name: "sequential/dense_2/MatMul"
+  op: "MatMul"
+  input: "sequential/dense_1/Relu"
+  input: "sequential/dense_2/MatMul/ReadVariableOp/resource"
+  attr {
+    key: "transpose_a"
+    value {
+      b: false
+    }
+  }
+  attr {
+    key: "transpose_b"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "sequential/dense_2/BiasAdd"
+  op: "BiasAdd"
+  input: "sequential/dense_2/MatMul"
+  input: "sequential/dense_2/BiasAdd/ReadVariableOp/resource"
+}
+node {
+  name: "sequential/dense_2/Relu"
+  op: "Relu"
+  input: "sequential/dense_2/BiasAdd"
+}
+node {
+  name: "sequential/dense_3/MatMul"
+  op: "MatMul"
+  input: "sequential/dense_2/Relu"
+  input: "sequential/dense_3/MatMul/ReadVariableOp/resource"
+  attr {
+    key: "transpose_a"
+    value {
+      b: false
+    }
+  }
+  attr {
+    key: "transpose_b"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "sequential/dense_3/BiasAdd"
+  op: "BiasAdd"
+  input: "sequential/dense_3/MatMul"
+  input: "sequential/dense_3/BiasAdd/ReadVariableOp/resource"
+}
+node {
+  name: "sequential/dense_3/Softmax"
+  op: "Softmax"
+  input: "sequential/dense_3/BiasAdd"
+}
