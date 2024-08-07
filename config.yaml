@@ -3,35 +3,39 @@ data_file: processed/IoT-23.csv # processed/EdgeIIoTset.csv # relative to data_d
 result_dir: results/
 debug: False # mode: turn debugging mode True for preprocessing on debug_rows samples.
 debug_rows: 30000 # if debug: True, consider the number of data rows for the experiment.
-minority_threshold: 500 # filter out the minority classes with threshold value. 
+minority_threshold: 500 # filter out the minority classes with threshold value.
 apply_balancer: False # True if you want to apply the classes' balancer
 train: True
 test: True
 
 preprocess:
+  iot23_url: https://mcfp.felk.cvut.cz/publicDatasets/IoT-23-Dataset/iot_23_datasets_small.tar.gz
+  edgeIIoT: https://ieee-dataport.org/documents/edge-iiotset-new-comprehensive-realistic-cyber-security-dataset-iot-and-iiot-applications#
   raw_dir: data/local/2022-04-19
-  save_csv: chunk # If 'chunk', save converted rows from text files into the equal size of csv files specified by chunk_size, 
-                  # If 'full', it converts each text file into csv file. 
+  save_csv:
+    chunk # If 'chunk', save converted rows from text files into the equal size of csv files specified by chunk_size,
+    # If 'full', it converts each text file into csv file.
   chunk_size: 1000000
   # a single raw file or dir of all .csv files with path relative to data_dir
   raw_data: raw/EdgeIIoTset.csv
   normalized_data: normalized/EdgeIIoTset.csv # relative to data_dir
-  processed_data: processed/EdgeIIoTset.csv   # relative to data_dir
-  include_history: False # include history column or not 
-  num_features: 30  # number of features to select
+  processed_data: processed/EdgeIIoTset.csv # relative to data_dir
+  include_history: False # include history column or not
+  num_features: 30 # number of features to select
 
-model:    # settings for training and testing experiments
-  seed: 41  # seed for reproduciability to generate same set of samples of data splits
+model: # settings for training and testing experiments
+  seed: 41 # seed for reproduciability to generate same set of samples of data splits
   type: multiclass # binary or multiclass
   name: dnn # SVM or RandomForest = rf
   k-fold: 20 # number of cross-validation folds
   save: True # save the trained model (True) or not (False)
   split_ratio: 0.2 # ratio of training and testing ratio
-  use_neptune: True # Boolean value to switch between enabling neptune usage or not 
-                    # for tracking the experiments in neptune.ai, 
-                    # If True, make sure you have correctly configured '.neptune_config.ini' file
+  use_neptune:
+    True # Boolean value to switch between enabling neptune usage or not
+    # for tracking the experiments in neptune.ai,
+    # If True, make sure you have correctly configured '.neptune_config.ini' file
 dnn:
-  epochs: 204  # default 200
+  epochs: 204 # default 200
   batch: 16
   lr: 0.01
   patience: 100

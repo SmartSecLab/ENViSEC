@@ -39,7 +39,8 @@ from tensorflow.keras.optimizers import Adam, SGD
 import tensorflow_addons as tfa
 
 from src.models import create_DNN, create_LSTM
-from src.utility import (init_neptune, load_config, load_data, plot_history, utilize_gpu, get_dataset_name)
+from src.utility import (init_neptune, load_config,
+                         load_data, plot_history, utilize_gpu, get_dataset_name)
 
 
 def split_data(data, config):
@@ -65,17 +66,17 @@ def split_data(data, config):
         y = encoder.transform(y)
 
     X = data.drop(label_cols, axis=1)
-    # 80% for training and 20% for eval and test, 
+    # 80% for training and 20% for eval and test,
     # random_state for reproducibility
-    X_train, X_eval_test, y_train, y_eval_test = train_test_split(X, y, 
-        test_size=0.2,
-        random_state=config['model']['seed']
-        )
+    X_train, X_eval_test, y_train, y_eval_test = train_test_split(X, y,
+                                                                  test_size=0.2,
+                                                                  random_state=config['model']['seed']
+                                                                  )
     X_eval, X_test, y_eval, y_test = train_test_split(
         X_eval_test, y_eval_test,
         test_size=0.50,
         random_state=config['model']['seed']
-        )
+    )
     return X_train, X_eval, X_test, y_train, y_eval, y_test
 
 
@@ -85,13 +86,14 @@ def filter_minority_classes(df, minor_threshold):
     if config['debug']:
         minor_threshold = 10
     count_dict = dict(df['multi_label'].value_counts())
-    selected_classes = [x[0] for x in count_dict.items() if x[1] > minor_threshold]
+    selected_classes = [x[0]
+                        for x in count_dict.items() if x[1] > minor_threshold]
     df = df[df['multi_label'].isin(selected_classes)]
     return df
 
 
 def sampling_strategy(X, y, n_samples, t='majority'):
-    # undersample if the majority class is greater than mean value 
+    # undersample if the majority class is greater than mean value
     # reference: https://towardsdatascience.com/how-to-deal-with-imbalanced-multiclass-datasets-in-python-fe0bb3f2b669
     target_classes = ''
     sampling_strategy = {}
@@ -110,7 +112,8 @@ def sampling_strategy(X, y, n_samples, t='majority'):
 
     # not applying undersampling to 'benign' class
     # if 'benign' in sampling_strategy:
-    sampling_strategy = {i: sampling_strategy[i] for i in sampling_strategy if i != 7}
+    sampling_strategy = {i: sampling_strategy[i]
+                         for i in sampling_strategy if i != 7}
 
     print('\t', sampling_strategy)
     return sampling_strategy
@@ -128,12 +131,14 @@ def apply_balancer(X, y):
     print('labels\'s count: \n', count)
 
     under_sampler = RandomUnderSampler(
-        sampling_strategy=sampling_strategy(X, pd.Series(y), n_samples, t='majority'),
+        sampling_strategy=sampling_strategy(
+            X, pd.Series(y), n_samples, t='majority'),
         random_state=41)
     X_under, y_under = under_sampler.fit_resample(X, y)
 
     over_sampler = SMOTE(
-        sampling_strategy=sampling_strategy(X_under, pd.Series(y_under), n_samples, t='minority'),
+        sampling_strategy=sampling_strategy(
+            X_under, pd.Series(y_under), n_samples, t='minority'),
         random_state=41)
     X_bal, y_bal = over_sampler.fit_resample(X_under, y_under)
     print('Labels count: ', Counter(y_bal))
@@ -159,10 +164,10 @@ def train_DNN(config, train_data, train_labels, val_data, val_labels):
 
     # Setup the model
     model = None
-    if config['model']['name'].lower()=='dnn':
+    if config['model']['name'].lower() == 'dnn':
         model = create_DNN(input_size, output_size)
 
-    if config['model']['name'].lower()=='lstm':
+    if config['model']['name'].lower() == 'lstm':
         model = create_LSTM(input_size, output_size, config['dnn']['dropout'])
 
     model.compile(
@@ -212,7 +217,8 @@ def train_DNN(config, train_data, train_labels, val_data, val_labels):
         num_classes=output_size)
 
     print('\ntrain_labels: \n', train_labels_ndry[:2])
-    print('val_labels: \n', val_labels_ndry[:2])  # TODO correct categorizing of val_labels
+    # TODO correct categorizing of val_labels
+    print('val_labels: \n', val_labels_ndry[:2])
     print('\nX sample: \n', train_data[:2])
     print('-' * 70)
     # multi-level class weights
@@ -229,7 +235,7 @@ def train_DNN(config, train_data, train_labels, val_data, val_labels):
                         train_labels_ndry,
                         batch_size=config['dnn']['batch'],
                         epochs=config['dnn']['epochs'],
-                        # validation_split=config['model']['split_ratio'], #TODO: not to split here
+                        # validation_split=config['model']['split_ratio'],
                         validation_data=(val_data, val_labels_ndry),
                         verbose=config['dnn']['verbose'],
                         # class_weight=class_weights,
@@ -254,26 +260,30 @@ def score_predict(trained_model, X, y):
 
     return acc, pre, rec, f1
 
+
 def train_shallow(trained_model, X_train, y_train, X_test, y_test):
     """ training of non-dnn models
     """
     trained_model.fit(X_train, y_train)
     print('+' * 70)
-    train_acc, train_pre, train_rec, train_f1 = score_predict(trained_model, X_train, y_train)
-    print('\nTrain metrics (acc, pre, rec): ', (train_acc, train_pre, train_rec, train_f1))
-    eval_acc, eval_pre, eval_rec, eval_f1 = score_predict(trained_model, X_test, y_test)
-    print('\nTest metrics (acc, pre, rec): ', (eval_acc, eval_pre, eval_rec, eval_f1))
+    train_acc, train_pre, train_rec, train_f1 = score_predict(
+        trained_model, X_train, y_train)
+    print('\nTrain metrics (acc, pre, rec): ',
+          (train_acc, train_pre, train_rec, train_f1))
+    eval_acc, eval_pre, eval_rec, eval_f1 = score_predict(
+        trained_model, X_test, y_test)
+    print('\nTest metrics (acc, pre, rec): ',
+          (eval_acc, eval_pre, eval_rec, eval_f1))
     print('+' * 70)
 
     if config['model']['use_neptune']:
         from neptune.new.integrations.tensorflow_keras import NeptuneCallback
         print('\n' + '-' * 30 + 'Neptune' + '-' * 30 + '\n')
         nt_run = init_neptune(config['model']['path'])
-        nt_run['metrics/train'] = {'train_acc': train_acc, 'train_pre': train_pre, \
-        'train_rec': train_rec, 'train_f1': train_f1}
-        nt_run['metrics/test'] = {'test_acc': eval_acc, 'test_pre': eval_pre, \
-        'test_rec': eval_rec, 'test_f1': eval_f1}
-
+        nt_run['metrics/train'] = {'train_acc': train_acc, 'train_pre': train_pre,
+                                   'train_rec': train_rec, 'train_f1': train_f1}
+        nt_run['metrics/test'] = {'test_acc': eval_acc, 'test_pre': eval_pre,
+                                  'test_rec': eval_rec, 'test_f1': eval_f1}
 
     y_pred = trained_model.predict(X_test)
     # encoder = preprocessing.LabelEncoder() # need to check
@@ -305,11 +315,10 @@ def train_shallow(trained_model, X_train, y_train, X_test, y_test):
 def model_train(data, config):
     """Train and test the model using the training data
     """
-    model_name = config['model']['name'] 
+    model_name = config['model']['name']
     # print('y_labels on total data: ', set(list(data.multi_label)))
     # X_train, X_test, y_train, y_test = split_data(data, config)
-    X_train, X_eval, _ , y_train, y_eval, _ = split_data(data, config)
-
+    X_train, X_eval, _, y_train, y_eval, _ = split_data(data, config)
 
     # apply class balancer(s) if that is enabled at config.yaml
     if config['apply_balancer']:
@@ -332,9 +341,10 @@ def model_train(data, config):
 
     elif model_name.lower() == 'basic-dnn' or model_name.lower() == 'dnn':
         trained_model, history = train_DNN(config, X_train, y_train, X_eval,
-                                           y_eval)  
+                                           y_eval)
     else:
-        print('\nModelSelectionError, please select the right model! Not found: ', model_name)
+        print(
+            '\nModelSelectionError, please select the right model! Not found: ', model_name)
         exit(1)
 
     # plot_curves(config, trained_model, X_train, y_train, cv=3, return_times=True)
@@ -342,7 +352,8 @@ def model_train(data, config):
     print('Training model: ', model_name)
     print('#'*70)
     if model_name.lower() != 'dnn':
-        clf_matrix, clf_report = train_shallow(trained_model, X_train, y_train, X_eval, y_eval)
+        clf_matrix, clf_report = train_shallow(
+            trained_model, X_train, y_train, X_eval, y_eval)
         return trained_model, clf_matrix, clf_report
     else:
         return trained_model, history
@@ -358,7 +369,7 @@ def test_model(model_file, X_test, y_test, output_size):
     # Generate generalization metrics
     print('Used the trained model saved at: ', model_file)
     model = load_model(model_file)
-    
+
     X_test = X_test.values.astype(float)
     y_test = tf.keras.utils.to_categorical(
         y=y_test,
@@ -371,28 +382,31 @@ def test_model(model_file, X_test, y_test, output_size):
 
 if __name__ == '__main__':
     # Command Line Arguments:
-    parser = argparse.ArgumentParser(description='AI-enabled Cybersecurity for malware detection...')
-    parser.add_argument('--model', type=str, help='Name of the model to train/test.')
+    parser = argparse.ArgumentParser(
+        description='AI-enabled Cybersecurity for malware detection...')
+    parser.add_argument('--model', type=str,
+                        help='Name of the model to train/test.')
     parser.add_argument('--data', type=str, help='Data file for train/test.')
     paras = parser.parse_args()
 
     # Config File Arguments:
     config = load_config('config.yaml')
     # data_file = config['data_dir'] + config['data_file']
-    data_file = paras.data if paras.data else config['data_dir'] + config['data_file']
+    data_file = paras.data if paras.data else config['data_dir'] + \
+        config['data_file']
 
     minor_threshold = int(config['minority_threshold'])
-    
-    # pick model name from command line arg otherwise from config file. 
-    config['model']['name'] = paras.model if paras.model else config['model']['name'] 
 
+    # pick model name from command line arg otherwise from config file.
+    config['model']['name'] = paras.model if paras.model else config['model']['name']
 
-    config['model']['path'] =  config['result_dir'] + config['model']['name'] \
+    config['model']['path'] = config['result_dir'] + config['model']['name'] \
         + '-' + str(config['dnn']['epochs']) + '-' + Path(data_file).stem + '/'
     print(f"\n\nModel path: {config['model']['path']}")
 
     if config['debug']:
-        config['model']['path'] = config['model']['path'].rsplit('/', 1)[0] + '-debug/'
+        config['model']['path'] = config['model']['path'].rsplit(
+            '/', 1)[0] + '-debug/'
 
     if config['train']:
         Path(config['model']['path']).mkdir(parents=True, exist_ok=True)
@@ -443,4 +457,3 @@ if __name__ == '__main__':
             result = loaded_model.score(X_test, y_test)
             print('result: ', result)
         print('\n' + '-' * 35 + 'Testing Completed' + '-' * 35 + '\n')
-
